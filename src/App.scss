@@ -1,0 +1,187 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+#app-container {
+  max-width: 1280px;
+  margin:auto;
+  background-color: #0080001a;
+  height: 100vh;
+  & > div {
+    height: 100%;
+  }
+
+  .analysis-wrapper {
+    margin-bottom: 30px;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 8px;
+    & > div {
+      margin: 5px;
+    }
+  }
+
+  .explain-container {
+    overflow-y: scroll;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+  }
+  .action-container {
+    padding-top: 10px;
+    height: 250px;
+    .json-input-wrapper {
+      width: 100%;
+      textarea{
+        width: 100%;
+        height: 100px;
+        margin-top: 30px;
+      }
+    }
+    
+    .search-food-wrapper {
+      input {
+        width: 300px;
+        height: 30px;
+        padding-left: 8px;
+      }
+    }
+
+    .header {
+      input {
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 500px;
+        margin-left: 30px;
+      }
+    }
+  }
+
+  .food-info {
+    display: flex;
+    align-items: center;
+    border-bottom: black dotted 1px;
+    padding: 5px;
+    & > div {
+      margin: 5px;
+    }
+
+    &.selected {
+      background-color: purple;
+    }
+
+    &__food_name{
+      border: solid 1px transparent;
+      background-color: #dca840;
+      padding: 3px;
+      border-radius: 6px;
+      width: 30%;
+      cursor: pointer;
+
+      &.selected {
+        background-color: green;
+        color: white;
+        font-weight: bold;
+      }
+
+      .additional-info {
+        font-style: italic;
+        color: white;
+      }
+    }
+
+    .people-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+  .person_name {
+    white-space: nowrap;
+    margin: 5px;
+    padding: 3px;
+    border-radius: 6px;
+    border: solid 1px transparent;
+    cursor: pointer;
+    color: white;
+    background-color: rgb(8 0 237 / 81%);
+    font-weight: 400;
+    &.selected {
+      background-color: white;
+      color: black;
+      border-color: red;
+    }
+
+    &.warning {
+      padding-right: 30px;
+      position: relative;
+      &::before {
+        content: 'i';
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        position: absolute;
+        border: solid 1px transparent;
+        background-color: #c4c45b;
+        color: white;
+        border-radius: 50%;
+        font-weight: bold;
+        color: white;
+        right: 0;
+        top: 0;
+      }
+    }
+  }
+
+  .manual_census {
+    @extend .person_name;
+    background-color: rgba(238, 29, 137, 0.557);
+  }
+
+  .person-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgb(255, 0, 0);
+    padding: 10px 0px;
+    div {
+      margin: 5px;
+    }
+    &__name {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    &__service_types_wrapper {
+      display: flex;
+
+      & > div {
+        border: solid 1px black;
+        background-color: yellow;
+        padding: 5px;
+        border-radius: 8px;
+
+        &.current-meal {
+          background-color: rgb(47, 103, 32);
+          color: white;
+        }
+      }
+    }
+
+    &__action-wrapper {
+      button{
+        margin: 5px;
+        height: 40px;
+        padding: 10px;
+        border-radius: 3px;
+        border: none;
+        background-color: green;
+        color: white;
+        font-weight: bold;
+
+      }
+    }
+  }
+}
