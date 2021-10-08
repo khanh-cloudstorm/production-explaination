@@ -34,7 +34,6 @@ class ExplainPage extends Component {
         foods: jsonData.foods,
         menu_categories: jsonData.menu_categories,
         people: jsonData.people,
-        advance_orders: jsonData.advance_orders,
         currentMealId: jsonData.meal_id
       })
     }catch{
