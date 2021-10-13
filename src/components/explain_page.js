@@ -46,7 +46,7 @@ class ExplainPage extends Component {
       <div className="action-container">
         <div style={{display: 'flex'}} className="header">
           <h1>Explain Json</h1>
-          <input onChange={(e) => this.setState({domain: e.target.domain})} placeholder="Enter your server"/>
+          <input onChange={(e) => this.setState({domain: e.target.value})} placeholder="Enter your server"/>
         </div>
         <div className="json-input-wrapper">
           <textarea onChange={this.updateExplainState}></textarea>
@@ -78,7 +78,7 @@ class ExplainPage extends Component {
 
   getPersonName = personId => {
     let person = this.state.people[personId]
-    return person ? person.name : 'Manual Census'
+    return person ? person.name : 'Forecast'
   }
 
   getValidFoods = () => {
@@ -112,9 +112,10 @@ class ExplainPage extends Component {
             let groupedItems = itemsGroupedbyAdjustment[adjustment]
             let personIds = flatten(groupedItems.map((i) => i.person_ids))
             let servings = sumBy(groupedItems, 'quantity')
+            let menuCategoryIds = groupedItems.map((e) => e.menu_category_id)
             return(
               <Fragment>
-                {this.renderFoodInfo(food, adjustment, personIds, servings)}
+                {this.renderFoodInfo(food, adjustment, personIds, servings, menuCategoryIds)}
               </Fragment>
             )
           })
@@ -127,17 +128,21 @@ class ExplainPage extends Component {
     return personIds.filter(personId => personId).length
   }
 
-  renderFoodInfo = (food, adjustment, personIds, servings) =>  {
+  renderFoodInfo = (food, adjustment, personIds, servings, menuCategoryIds) =>  {
     let isSelectedFood = this.state.selectedFoodId == food.id
     let personCount = this.countPeople(personIds)
+    let menuCategoryNames = this.state.menu_categories.filter(([name, id]) => {
+      return menuCategoryIds.includes(id)
+    })
     return(
       <div className={`food-info ${isSelectedFood ? 'selected' : '' }`}>
         <div className={`food-info__food_name`}
              onClick={() => this.setState({selectedFoodId: food.id})}>
-          <span>{`${food.name}`}</span>
+          <span>{`${food.name} (${food.id})`}</span>
           <div className="additional-info">
             <span>{`Adjust: ${adjustment}, Servings: ${servings}, `}</span>
             <span style={servings != personCount ? {'color': 'red'} : {}}>{`Person Count: ${personCount}`}</span>
+            <div>{ menuCategoryNames.map(([name, id]) => name).join(',') }</div>
           </div>
         </div>
         <div className="people-wrapper">
